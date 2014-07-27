@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="ru"><![CDATA[iMap Google]]></title>
+		<description lang="ru"><![CDATA[Добавляет на форум ссылку на Google карты с адресом откуда пользователь.]]></description>
+		<github><![CDATA[https://github.com/iRusel/iMap-Google]]></github>
+		<author-group>
+			<author>
+				<realname><![CDATA[Руслан]]></realname>
+				<username phpbbcom="no"><![CDATA[iRusel]]></username>
+				<homepage><![CDATA[http://www.irusel.com]]></homepage>
+				<email><![CDATA[irusel@yandex.ru]]></email>
+			</author>
+		</author-group>
+		<mod-version>0.0.1</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>120</time>
+			<target-version>3.0.12</target-version>
+		</installation>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/styles/prosilver/theme/images/icon_map.gif" to="styles/prosilver/theme/images/icon_map.gif"/>
+		</copy>
+		<open src="memberlist.php">
+			<edit>
+				<find><![CDATA['LOCATION'		=> ($data['user_from']) ? $data['user_from'] : '',]]></find>
+				<action type="after-add"><![CDATA['LOCATION_MAP'	=> ($data['user_from']) ? 'https://www.google.ru/maps/place/'.$data['user_from'] : '',]]></action>
+			</edit>
+		</open>
+		<open src="styles\prosilver\template\memberlist_view.html">
+			<edit>
+				<find><![CDATA[<!-- IF LOCATION --><dt>{L_LOCATION}:</dt> <dd>{LOCATION}</dd><!-- ENDIF -->]]></find>
+				<find><![CDATA[<dd>{LOCATION}]]></find>
+				<action type="after-add"><![CDATA[<a href="{LOCATION_MAP}" target="_blank"><img src="{T_THEME_PATH}/images/icon_map.gif"></a>]]></action>
+			</edit>
+		</open>
+		<diy-instructions lang="ru"><![CDATA[Обновить кэш.]]></diy-instructions>
+	</action-group>
+</mod>
